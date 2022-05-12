@@ -1,0 +1,31 @@
+ #fruits{
+    background-color: rgb(31, 8, 95);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 10px;
+    padding: 7px;
+
+
+}
+
+
+ #vegetables{
+    background-color: rgb(153, 163, 14);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 10px;
+    padding: 7px;
+
+    
+}
+ #groceries{
+    background-color: rgb(7, 68, 17);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 10px;
+    padding: 7px;
+    
+}

@@ -1,0 +1,102 @@
+<div class="flash-messages">
+    <flash-messages></flash-messages>
+    </div>
+<div class="cust-container" >
+
+
+    <div class="card-container"*ngIf="(showmode=='register')"   fxFlex="80">
+        <mat-card>
+            <mat-card-title>
+
+                <h5>SignUp</h5>
+            </mat-card-title>
+            <mat-card-content>
+
+                <form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field>
+                        <label>Enter your Name</label>
+                        <input matInput type="text" formControlName="Username" required>
+                        <mat-error *ngIf="formErrors.Username">{{formErrors.Username}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Age</label>
+                        <input matInput type="number" formControlName="Age" required>
+                        <mat-error *ngIf="formErrors.Age">{{formErrors.Age}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your City</label>
+                        <input matInput type="text" formControlName="City" required>
+                        <mat-error *ngIf="formErrors.City">{{formErrors.City}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your State</label>
+                        <input matInput type="text" formControlName="State" required>
+                        <mat-error *ngIf="formErrors.State">{{formErrors.State}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Email</label>
+                        <input matInput type="Email" formControlName="Email" required>
+                        <mat-error *ngIf="formErrors.Email">{{formErrors.Email}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Password</label>
+                        <input matInput type="text" formControlName="password" required>
+                        <mat-error *ngIf="formErrors.dob">{{formErrors.dob}}</mat-error>
+
+                    </mat-form-field>
+
+                    
+
+                    <button type="submit">Register</button>
+                    <button >Delete</button>
+                    <h4>Alread have an account!<button (click)="login()"> SignIn</button></h4>
+
+
+
+                </form>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div class="login-container" *ngIf="(showmode=='unregister')" fxFlex="80">
+        <mat-card>
+            <mat-card-title>
+                <h5>Login</h5>
+            </mat-card-title>
+            <mat-card-content>
+
+                <form [formGroup]="LoginForm" (ngSubmit)="Add()">
+                    
+                    <mat-form-field>
+                        <label>Enter your Email</label>
+                        <input matInput type="Email" formControlName="Email" required>
+                        <mat-error *ngIf="formErrors.Email">{{formErrors.Email}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Password</label>
+                        <input matInput type="text" formControlName="password" required>
+                        <mat-error *ngIf="formErrors.dob">{{formErrors.dob}}</mat-error>
+
+                    </mat-form-field>
+
+                    <button type="submit">Login</button>
+                    <button >Delete</button>
+                    <h4>Dont have an account!<button (click)="SignUp()"> Register</button></h4>
+
+
+
+                </form>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+</div>

@@ -1,0 +1,30 @@
+ .header-container{
+box-shadow:2px 2px 2px 2px  rgb(129, 117, 155);
+background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+}
+
+.header-container h3{
+    font-style: italic;
+    text-shadow: 1px 2px black;
+    color: blue;
+}
+.header-container a{
+    text-decoration: none;
+}
+
+.header-container h3 span{
+    font-size: 2em;
+    text-shadow: 1px 2px black;
+}
+
+.header-container .link-container {
+    margin-left: 65vw;
+}
+
+.header-container .link-container a{
+    margin-left:10px;
+    text-decoration: none;
+    color: blue;
+    font-style: bold italic;
+    font-size: 1.3em;
+}
