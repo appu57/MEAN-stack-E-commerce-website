@@ -26,7 +26,6 @@ router.delete('/signup', function (req, res, next) {
     })
 });
 router.post('/signup', (req, res, next) => {
-  const { Username, password, Age, City, State, Email } = req.body;
 
   User.register({
     username: req.body.Email,
@@ -46,7 +45,6 @@ router.post('/signup', (req, res, next) => {
     else {
       //{"Username":"err","password":"err","Age":"err","City":"err","State":"err","Email":"err"}
       passport.authenticate('local')(req, res, () => {
-        console.log("2nd log", res)
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json({
@@ -76,8 +74,17 @@ router.get('/logout', (req, res, next) => {
     console.log(req.session);
     req.session.destroy();
     res.clearCookie('session-id');
+    res.json({status:'You are logged out'})
   }
-})
+});
+
+router.delete('/delete',(req,res)=>{
+  User.remove(req.body).then((user)=>{
+    res.statusCode=200;
+    res.setHeader('Content-Type','application/json');
+    res.json(user);
+  })
+});
 
 module.exports = router;
 

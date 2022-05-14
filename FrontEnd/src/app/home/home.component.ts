@@ -14,7 +14,7 @@ data:any;
   constructor(private router:Router, private http:HttpClient,
     private service:UserService, private flash:FlashMessagesService) { 
  const Navigation =this.router.getCurrentNavigation();
- const data =Navigation?.extras.state;
+ this.data =Navigation?.extras.state;
     this.flash.show('Welcome to Order.com ');
  
 

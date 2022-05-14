@@ -10,10 +10,6 @@ var OrderSchema = new schema({
         required:true,
         unique:true
     },
-     image:{
-         type:String,
-         required:true
-     },
      description:{
          type:String,
          required:true
@@ -34,7 +30,13 @@ var OrderSchema = new schema({
      Groceries:{
         type:Boolean,
         default:false
-     }
+     },
+     img:[
+         {
+            data:Buffer
+                 }
+     ]
+     
 
 
 });

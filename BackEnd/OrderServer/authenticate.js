@@ -5,6 +5,7 @@ var Users = require('./models/user');
 
 
 exports.local = passport.use(new LocalStrategy({
+  usernameField:'Email',
   passwordField: 'password'
 },
 

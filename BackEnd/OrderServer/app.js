@@ -25,6 +25,7 @@ connect
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var CartRouter= require('./routes/Cart');
+var imgRouter= require('./routes/multer');
 
 
 
@@ -34,7 +35,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade')
-app.use('/Cart',CartRouter);
+
 
 app.use(cors());
 app.use(logger('dev'));
@@ -59,6 +60,8 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/Cart',CartRouter);
+app.use('/multer',imgRouter);
 
 
 function auth(req, res, next) {
