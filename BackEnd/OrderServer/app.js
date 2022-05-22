@@ -42,7 +42,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/public', express.static(path.join('public/images')));
+
+
+
 
 
 app.use(session({
@@ -60,8 +63,8 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/Cart',CartRouter);
 app.use('/multer',imgRouter);
+app.use('/cart',CartRouter);
 
 
 function auth(req, res, next) {

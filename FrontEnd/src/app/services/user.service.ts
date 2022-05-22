@@ -26,4 +26,8 @@ private headers=new HttpHeaders().set('Content-Type','appication/json');
      return this.http.post("http://localhost:3000/users/login",data);
   }
 
+  getCartdetails(){
+    return this.http.get("http://localhost:3000/multer");
+  }
+
 }

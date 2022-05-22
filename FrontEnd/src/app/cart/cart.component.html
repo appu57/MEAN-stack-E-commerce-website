@@ -1,22 +1,16 @@
 <div class="Cart-Container" *ngIf="(show===show)">
-    <button id="fruits" (click)=fruits()>Add Fruits</button>
+    <button id="fruits" >Add Fruits</button>
     <button id="vegetables">Add Vegetables</button>
     <button id="groceries">Add Groceries</button>
+    <button (click)="get()">Add Groceries</button>
+
+
+    <div class="container" *ngIf="data">
+        <p>{{data | json}}
+        </p>
+        <img src="{{baseUrl + data['0'].filename}}"/>
+        <img src="{{baseUrl + data['1'].filename}}"/>
 
 </div>
-<div class="Cart-container" *ngIf="(show===fruits)">
-   <form [formGroup]="Fuits" (ngSubmit)="AddFruits()">
-       <mat-form-field>
-           <input type="text" formControlName="name" placeholder="Enter the name of Fruit" required>
-       </mat-form-field>
-       <mat-form-field>
-        <input type="text" formControlName="name" placeholder="Enter the name of Fruit" required>
-    </mat-form-field>
-    <mat-form-field>
-        <input type="text" formControlName="name" placeholder="Enter the name of Fruit" required>
-    </mat-form-field>
-    <mat-form-field>
-        <input type="text" formControlName="name" placeholder="Enter the name of Fruit" required>
-    </mat-form-field>
-   </form>
 </div>
+
