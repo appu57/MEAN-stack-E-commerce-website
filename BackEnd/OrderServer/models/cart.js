@@ -19,21 +19,17 @@ var OrderSchema = new schema({
         required: true,
         min: 0
     },
-    fruits: {
-        type: Boolean,
-        default: false
+    productType: {
+        type:String,
+        required:true
     },
-    Vegetables: {
-        type: Boolean,
-        default: false
-    },
-    Groceries: {
-        type: Boolean,
-        default: false
-    },
-    img:String,
-    filename:String
-    
+    filename: String,
+    image: [{
+        img: String,
+        filename:String
+    }]
+ 
+
 
 
 

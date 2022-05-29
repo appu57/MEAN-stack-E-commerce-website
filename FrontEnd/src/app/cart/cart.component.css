@@ -1,3 +1,7 @@
+.Cart-Container{
+    text-align: center;
+    justify-content: center;
+}
  #fruits{
     background-color: rgb(31, 8, 95);
     color: white;
@@ -5,27 +9,53 @@
     font-size: 1.2em;
     border-radius: 10px;
     padding: 7px;
+   
 
 
 }
+.Cart-Container .fruits-container{
+    margin-left: 25vw;
+   
+}
 
-
- #vegetables{
-    background-color: rgb(153, 163, 14);
-    color: white;
-    font-weight: bold;
-    font-size: 1.2em;
+.fruits-container{
+    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    box-shadow: 1px 1px 1px 1px darkgreen;
     border-radius: 10px;
-    padding: 7px;
-
+    margin-top: 30px;
+    width: 50vw;
     
 }
- #groceries{
-    background-color: rgb(7, 68, 17);
+/*Form to display in center*/
+.fruits-container .form-container{
+    display: grid;
+    justify-content: center;
+}
+
+/*Form input styling*/
+.fruits-container .form-container input[type="text"]{
+    height: 18px;
+    width: 18vw;
+}
+.fruits-container .form-container input[type="number"]{
+    height: 18px;
+    width: 18vw;
+}
+.fruits-container .form-container textarea{
+    width: 18vw;
+}
+
+/*Radio buttons display*/
+.fruits-container .form-container .radio-button {
+    display: flex;
+}
+
+.fruits-container .form-container button{
+    background-color: darkgreen;
+    border-radius: 18px;
     color: white;
     font-weight: bold;
-    font-size: 1.2em;
-    border-radius: 10px;
-    padding: 7px;
-    
+    padding: 10px;
+    margin-top: 10px;
 }
+

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/userservice';
 import { Router , NavigationExtras} from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { timeout } from 'rxjs/operator/timeout';
@@ -69,8 +69,8 @@ export class CustomerComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient,
      private service: UserService, private router: Router,
      private flash:FlashMessagesService) {
-    this.createForm();
-    this.writeForm();
+    this.signinForm();
+    this.loginForm();
     this.showmode = 'register';
 
   }
@@ -79,7 +79,7 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
   }
 
-  createForm(): void {
+  signinForm(): void {
     this.SignUpForm = this.fb.group({
       Username: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
       Age: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(0)]],
@@ -91,7 +91,7 @@ export class CustomerComponent implements OnInit {
 
   }
 
-  writeForm(): void {
+  loginForm(): void {
     this.LoginForm = this.fb.group({
       Email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -135,4 +135,10 @@ export class CustomerComponent implements OnInit {
  //Another way of emitting data between components is using this.router.getCurrentNavigation in childComp in parComp sending data using NavigationExtras={state:data} in childcomp writing as navigation?.extras.state
     }})
   }
+
+delete(){
+  this.http.delete("http://localhost:3000/users/signup").subscribe((res)=>{
+    this.flash.show("Deleted")
+  })
+}
 }

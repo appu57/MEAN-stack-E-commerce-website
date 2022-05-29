@@ -17,14 +17,16 @@ background-image: linear-gradient(rgb(141, 211, 28),skyblue);
     text-shadow: 1px 2px black;
 }
 
-.header-container .link-container {
-    margin-left: 65vw;
+.header-container .dropdown {
+    margin-left: 50vw;
 }
 
 .header-container .link-container a{
     margin-left:10px;
     text-decoration: none;
     color: blue;
+    padding-left: 18px;
+
     font-style: bold italic;
     font-size: 1.3em;
 }

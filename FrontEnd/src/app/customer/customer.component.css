@@ -3,45 +3,39 @@
     height: 100vh;
 }
 
-.cust-container .card-container{
+mat-card mat-form-field{
+    display:grid;
+    text-align: center;
+    justify-content: center;
+
+    padding-bottom: 10px;  
+
+}
+
+
+.cust-container  {
    justify-content: center;
    text-align: center;
    float: center;
 }
 
 
-mat-card mat-form-field{
-    display: grid;
-    text-align: center;
-    padding-bottom: 40px;  
-}
 
-mat-card mat-form-field label{
-    position: absolute;
-    top:-23px
-}
 .cust-container mat-card{
     background-color: mediumseagreen;
-    background-image: linear-gradient(rgb(143, 108, 199),purple);
+    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
     font-size: 1.2em;
     margin-top: 5vh;
-    margin-left: 10vw;
-    text-align: center;
-    justify-content: center;
+    margin-left: 5vw;
 
-}
-mat-card mat-card-title{
-    text-align: center;
-    justify-content: center;
-    font-style: bold;
-    font-size:1.2em;
+
 }
 
 mat-card mat-form-field input{
     background-color: white;
+    height: 4vh;
     width: 40vw;
-    height: 5vh;
-} 
+}
 
 .flash-messages{
     background-image: linear-gradient(rgb(141, 211, 28),skyblue);
@@ -52,4 +46,43 @@ mat-card mat-form-field input{
     
     text-align: center;
     justify-content: center;
+} 
+
+button{
+    background-color: rgb(82, 223, 82);
+    border-radius: 10px;
+    border:1px solid blue;
+    font-weight: bold;
+    font-size: 0.75em;
+    color:blue;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

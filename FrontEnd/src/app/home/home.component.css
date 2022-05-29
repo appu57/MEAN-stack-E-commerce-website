@@ -4,3 +4,27 @@
     font-style: bold;
     
 }
+
+.card{
+    padding: 5px;
+    margin-top: 40px;
+  
+}
+
+.card img{
+    float: center;
+}
+.card .card-body h1{
+    white-space: nowrap;
+    font-size: 1.2em;
+}
+.card .card-body p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    max-width: 100px;
+}
+
+.card-body .badge{
+    color:black;
+}

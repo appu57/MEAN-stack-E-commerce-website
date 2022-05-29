@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/userservice';
 import { HttpClient} from '@angular/common/http';
 
 @Component({
@@ -10,6 +10,7 @@ import { HttpClient} from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 data:any;
+Products:any;
   constructor(private router:Router, private http:HttpClient,
     private service:UserService) { 
  const Navigation =this.router.getCurrentNavigation();
@@ -20,7 +21,9 @@ data:any;
  }
 
   ngOnInit(): void {
-    
+    this.http.get("http://localhost:3000/multer").subscribe((res=>{
+      this.Products= res;
+    }))
   }
 Logout(){
   this.service.logoutuser().subscribe((res)=>{

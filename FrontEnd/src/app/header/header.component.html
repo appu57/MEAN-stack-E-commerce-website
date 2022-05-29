@@ -1,7 +1,14 @@
 <mat-toolbar class="header-container">
     <a routerLink="/home">  <h3><span id="header">Order.</span>Com</h3></a>
-    <div class="link-container">
-        <a routerLink="/Cust">Users ClickHere</a>
-        <a routerLink="/admin">Admin ClickHere</a>
+    <a routerLink="/cart">Cart</a>
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+           
+                    <ol class="dropdown-menu">
+        <li><a routerLink="/Cust">Users ClickHere</a></li>
+        <li><a routerLink="/admin">Admin ClickHere</a></li>
+    </ol>
+</button>
     </div>
 </mat-toolbar>

@@ -24,7 +24,6 @@ connect
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var CartRouter= require('./routes/Cart');
 var imgRouter= require('./routes/multer');
 
 
@@ -64,7 +63,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/multer',imgRouter);
-app.use('/cart',CartRouter);
+
 
 
 function auth(req, res, next) {

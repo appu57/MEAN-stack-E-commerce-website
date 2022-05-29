@@ -5,6 +5,8 @@ const authenticate = require('../authenticate');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { stringify } = require('querystring');
+const { verify } = require('crypto');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -32,25 +34,14 @@ uploadRouter.use(bodyParser.json());
 
 
 uploadRouter.route('/')
-    .get((req, res, next) => {
+    .get(authenticate.verifyUser,(req, res, next) => {
         cart.find({}).then(Order => {
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "application/json");
-            res.json(Order);
+             console.log(Order);
 
-            // var object = [];
-            //     object.push({
-            //         name: Order.name,
-            //         description: Order.description,
-            //         price: Order.price,
-
-            //         img:res.sendFile('/public'+Order.img),
-            //         filename:Order.filename
-
-                    
             //     });
-            res.end();
-            console.log(Order);
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+            res.json(Order);
         },
         (err)=>next(err))
     })
@@ -59,26 +50,27 @@ uploadRouter.route('/')
         cart.remove(req.body)
             .then((data) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(data);
             })
     })
 
+
+
     //To add images the content type shld not be set or else set to multipart/form-data
-    .post(upload.single('imageFile'), (req, res) => {
-        const Prod = cart({
+    .post( (req, res) => {
+        const Prod =  cart({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
-            img: 'http://localhost:3000/public/' + req.file.filename,
-            filename:req.file.filename,
-            fruits:req.body.fruits,   
-            Groceries:req.body.Groceries,
-            vegetables:req.body.vegetables 
+            productType:req.body.productType,   
+         
         })
-        Prod.save().then(user => {
+         Prod.save()
+        .then(user => {
             res.statusCode = 200;
-            res.json(user);
+            res.setHeader('Content-Type','application/json');
+            res.json({user:user});
             console.log(req.file,'storage', storage,user);
 
 
@@ -86,6 +78,33 @@ uploadRouter.route('/')
 
 
     });
+    uploadRouter.route('/:cartId/image')
+    //To add images the content type shld not be set or else set to multipart/form-data
+    .post(upload.single('imageFile'), (req, res) => {
+
+         cart.findById(req.params.cartId)
+         .then((Products)=>{
+            Products.image.push({img:"http://localhost:3000/public/"+req.file.filename ,filename:req.file.filename});
+             Products.save().then((Cart)=>{
+                res.statusCode=200;
+                res.json(Products);
+                console.log(Cart);
+             })
+            
+
+         })
+        
+   
+
+
+        })
+        .delete((req,res,next)=>{
+            cart.findByIdAndDelete(req.params.cartId)
+            .then((Product)=>{
+                res.statusCode=200;
+                res.json(Product);
+            })
+        });
 
 
 module.exports = uploadRouter;

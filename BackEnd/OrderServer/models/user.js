@@ -33,6 +33,10 @@ password:{
       required:true
 
 
+   },
+   Admin:{
+      type:Boolean,
+      default:false
    }
 
 });
