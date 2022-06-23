@@ -1,1 +1,43 @@
-<p>admin works!</p>
+<div class="flash-messages">
+    <flash-messages></flash-messages>
+    </div>
+<div class="cust-container" >
+
+
+
+    <div class="login-container"  fxFlex="80">
+        <mat-card>
+            <mat-card-title>
+                <h5>Login</h5>
+            </mat-card-title>
+            <mat-card-content>
+
+                <form [formGroup]="LoginForm" (ngSubmit)="Add()">
+                    <mat-form-field>
+                        <label>Enter the Username</label>
+                        <input matInput formControlName="Username" type="text">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Email</label>
+                        <input matInput type="Email" formControlName="Email" required>
+
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label>Enter your Password</label>
+                        <input matInput type="text" formControlName="password" required>
+
+                    </mat-form-field>
+
+                    <button type="submit">Login</button>
+                    <button >Delete</button>
+
+
+
+                </form>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+</div>

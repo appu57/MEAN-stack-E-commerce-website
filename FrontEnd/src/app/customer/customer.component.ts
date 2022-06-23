@@ -1,10 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { UserService } from '../services/userservice';
-import { Router , NavigationExtras} from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { timeout } from 'rxjs/operator/timeout';
+
 
 
 @Component({
@@ -19,7 +19,8 @@ export class CustomerComponent implements OnInit {
   data: any;
   public showmode: string;
   values: any;
-  err:any;
+  err: any;
+  user:any;
   LoginForm: FormGroup;
   SignUpForm: FormGroup; //If form is not working     "strictPropertyInitialization": false, in tsconfig.json
   signup = { Username: String, Age: String, City: String, State: String, Email: String, password: String };
@@ -67,8 +68,10 @@ export class CustomerComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private http: HttpClient,
-     private service: UserService, private router: Router,
-     private flash:FlashMessagesService) {
+    private service: UserService, private router: Router,
+    private flash: FlashMessagesService,
+    
+ ) {
     this.signinForm();
     this.loginForm();
     this.showmode = 'register';
@@ -77,6 +80,9 @@ export class CustomerComponent implements OnInit {
 
 
   ngOnInit() {
+    this.http.get("http://localhost:3000/users/signup").subscribe((res)=>{
+      this.user=res;
+    })
   }
 
   signinForm(): void {
@@ -87,6 +93,7 @@ export class CustomerComponent implements OnInit {
       State: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
       Email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+     
     });
 
   }
@@ -106,12 +113,12 @@ export class CustomerComponent implements OnInit {
     console.log(this.SignUpForm);
     this.service.postUser(this.SignUpForm.value).subscribe(res => {
       console.log(res);
-      this.flash.show('User Registered. Login by clicking the SignIn button below!!',{timeout:10000});
+      this.flash.show('User Registered. Login by clicking the SignIn button below!!', { timeout: 10000 });
     },
-    (err)=>{
-      this.flash.show('User with the entered Email already exists ',{timeout:8000});
-      
-     });
+      (err) => {
+        this.flash.show('User with the entered Email already exists ', { timeout: 8000 });
+
+      });
   }
 
   login() { // To make one form visible after clicking submit button in another form within the same page use *ngIf
@@ -127,18 +134,29 @@ export class CustomerComponent implements OnInit {
   Add() {
     this.service.loginUser(this.LoginForm.value).subscribe((res) => {
       console.log(res);
-      this.values=res;
-      if (this.values){
-      const navigation : NavigationExtras={state:res};
-     this.router.navigateByUrl('/',navigation);
+      this.data = res;
 
- //Another way of emitting data between components is using this.router.getCurrentNavigation in childComp in parComp sending data using NavigationExtras={state:data} in childcomp writing as navigation?.extras.state
-    }})
+      localStorage.setItem('token', this.data.token);
+      console.log(localStorage.getItem('token'));
+
+      this.router.navigate(['home']);
+
+
+      //Another way of emitting data between components is using this.router.getCurrentNavigation in childComp in parComp sending data using NavigationExtras={state:data} in childcomp writing as navigation?.extras.state
+    })
+
+
   }
 
-delete(){
-  this.http.delete("http://localhost:3000/users/signup").subscribe((res)=>{
-    this.flash.show("Deleted")
-  })
-}
+  
+  clear() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+ 
+
+    console.log(localStorage.getItem('token'));
+
+    
+     
+  }
 }

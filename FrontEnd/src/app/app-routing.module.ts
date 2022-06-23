@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {CustomerComponent} from './customer/customer.component'
+import { CustomerComponent } from './customer/customer.component'
 import { HomeComponent } from './home/home.component';
-import {AdminComponent} from '../app/admin/admin.component'
+import { AdminComponent } from '../app/admin/admin.component'
 import { CartComponent } from './cart/cart.component';
 
+import { AuthGuard } from './shared/auth.guard';
+
 const routes: Routes = [
-  {path:'Cust', component:CustomerComponent},
-  {path:'admin', component:AdminComponent},
-  {path:"login", redirectTo:'/login' , pathMatch:"full"},
-  {path:"cart" , component:CartComponent},
-  {path:'',redirectTo:'/home', pathMatch :'full'},
-  {path:'home',component:HomeComponent}
+  { path: 'customer', component: CustomerComponent},
+  { path: 'admin', component: AdminComponent},
+  {
+    path: "cart", component: CartComponent,canActivate:[AuthGuard],
+    data:{
+      role:'Admin',
+    }
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent,canActivate: [AuthGuard] }
 
 ];
 

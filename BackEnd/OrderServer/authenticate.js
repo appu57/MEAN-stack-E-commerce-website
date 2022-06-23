@@ -72,7 +72,7 @@ exports.verifyUser=(req,res,next)=>{
 };
 
 exports.verifyAdmin= (req,res,next)=>{
-       if(req.user.admin){
+       if(req.user.Admin){
          next();
        }
        else{

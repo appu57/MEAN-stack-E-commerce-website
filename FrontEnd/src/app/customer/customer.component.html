@@ -49,16 +49,21 @@
 
                     </mat-form-field>
 
-                    
 
-                    <button type="submit">Register</button>
-                    <button (click)=delete() >Delete</button>
+                    <button type="submit" >Register</button>
+            
                     <h4>Alread have an account!<button (click)="login()"> SignIn</button></h4>
-
+ 
 
 
                 </form>
+<button (click)="clear()">clear</button>
+<!-- <div *ngIf="user">
 
+  
+    <button type="button" *ngFor="let user of user" (click)="token(user.Admin)"><div >Token</div></button>
+
+</div> -->
             </mat-card-content>
         </mat-card>
     </div>
@@ -71,7 +76,7 @@
             </mat-card-title>
             <mat-card-content>
 
-                <form [formGroup]="LoginForm" (ngSubmit)="Add()">
+                <form [formGroup]="LoginForm">
                     
                     <mat-form-field>
                         <label>Enter your Email</label>
@@ -86,9 +91,13 @@
 
                     </mat-form-field>
 
-                    <button type="submit">Login</button>
-                    <button >Delete</button>
-                    <h4>Dont have an account!<button (click)="SignUp()"> Register</button></h4>
+                   
+
+
+                        <button type="button" (click)="Add()">Register</button>
+
+                                   
+                         <h4>Dont have an account!<button (click)="SignUp()"> Register</button></h4>
 
 
 

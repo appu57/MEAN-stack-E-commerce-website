@@ -11,10 +11,14 @@ import { HttpClient} from '@angular/common/http';
 export class HomeComponent implements OnInit {
 data:any;
 Products:any;
+object:any=[];
+showmode:string;
+
   constructor(private router:Router, private http:HttpClient,
     private service:UserService) { 
  const Navigation =this.router.getCurrentNavigation();
  this.data =Navigation?.extras.state;
+ this.showmode="show";
  
 
 
@@ -26,12 +30,24 @@ Products:any;
     }))
   }
 Logout(){
+  console.log(localStorage);
   this.service.logoutuser().subscribe((res)=>{
     console.log(res);
-    this.router.navigateByUrl('/');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+
+    this.router.navigateByUrl('/customer');
+
 
   })
 }
 
+addtocart(key:String){
+   this.object.push(key);
+   console.log(this.object);
+}
 
+cart(){
+  this.showmode='cart';
+}
 }

@@ -33,14 +33,12 @@
 
     <div class="container" *ngIf="(showmode=='imageUpload')">
         <form enctype="multipart/form-data">
-            <div *ngIf="Product">
 
                 <input type="file" name="imageFile" (change)="onFileUpload($event)">
-                <button *ngFor="let Prod of Product" (click)="Uploaded(Prod._id)" aria-placeholder="Submit">
+                <button  (click)="Uploaded()" aria-placeholder="Submit">
                 Submit
                 </button>
 
-            </div>
         </form>
     </div>
 </div>

@@ -1,0 +1,62 @@
+.cust-container{
+    width: 100%;
+    height: 100vh;
+}
+
+mat-card mat-form-field{
+    display:grid;
+    text-align: center;
+    justify-content: center;
+
+    padding-bottom: 10px;  
+
+}
+
+
+.cust-container  {
+   justify-content: center;
+   text-align: center;
+   float: center;
+}
+
+
+
+.cust-container mat-card{
+    background-color: mediumseagreen;
+    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    font-size: 1.2em;
+    margin-top: 5vh;
+    margin-left: 5vw;
+
+
+}
+
+mat-card mat-form-field input{
+    background-color: white;
+    height: 4vh;
+    width: 40vw;
+}
+
+.flash-messages{
+    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    color:black;
+    font-size: 1.3em;
+    font-style: bold;
+    float:center;
+    
+    text-align: center;
+    justify-content: center;
+} 
+
+button{
+    background-color: rgb(82, 223, 82);
+    border-radius: 10px;
+    border:1px solid blue;
+    font-weight: bold;
+    font-size: 0.75em;
+    color:blue;
+}
+
+
+
+

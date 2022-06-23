@@ -13,84 +13,87 @@ import { UserService } from '../services/userservice';
 })
 export class CartComponent implements OnInit {
 
- addProduct :FormGroup
+  addProduct: FormGroup
   data: any;
   image: string = "";
-  object:any = [];
-  baseUrl="http://localhost:3000/public/"
-  Product:any;
-  length:any;
-  showmode:String;
-  upload:any;
-  ProductDetails = { name: String, description: String, price: Number};
- 
+  object: any = [];
+  baseUrl = "http://localhost:3000/public/"
+  Product: any;
+  length: any;
+  showmode: String;
+  upload: any;
+  ProductDetails = { name: String, description: String, price: Number };
+
+
   
-  constructor(private service: UserService, private http:HttpClient,private fb:FormBuilder,private router:Router) {
+  constructor(private service: UserService, private http: HttpClient, private fb: FormBuilder, private router: Router) {
     this.createForm();
-   }
+  }
 
   ngOnInit(): void {
- 
+
 
   }
 
-  createForm(){
-    this.addProduct=this.fb.group({
-      name:['',[Validators.required]],
-      description:['',[Validators.required]],
-      price:['',[Validators.required]],
-      productType:['',Validators.required]
-      
+  createForm() {
+    this.addProduct = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      productType: ['', Validators.required]
+
     })
   }
 
- 
-  
-
-fruits(){
-this.showmode="fruits";
-
-}
 
 
 
-submit(){
-  if(this.addProduct.valid){
-    this.service.postCartDetails(this.addProduct.value).subscribe((res)=>{
-      console.log(res);
-      this.showmode="imageUpload";
-      this.http.get("http://localhost:3000/multer").subscribe((res)=>{
-        this.Product=res;
-        this.length =this.Product.length;
-        console.log(this.length);
+  fruits() {
+    this.showmode = "fruits";
 
+  }
+
+
+
+  submit() {
+    if (this.addProduct.valid) {
+      this.service.postCartDetails(this.addProduct.value).subscribe((res) => {
+        console.log(res);
+        this.data = res;
+        this.showmode = "imageUpload";
+        this.Product = this.data.user._id;
+        console.log(this.Product);
+
+
+
+      })
+    }
+  }
+
+
+
+  formdata = new FormData();
+
+  onFileUpload(event: any) {
+    this.image = event.target.files[0];
+
+  }
+
+
+  Uploaded() {
+    console.log(this.Product);
+    this.formdata.append('imageFile', this.image);
+    this.http.post("http://localhost:3000/multer/" + this.Product + "/image", this.formdata).subscribe((image) => {
+      console.log(image);
+      this.router.navigateByUrl('/home');
     });
-    
-  })}
-}
-  
-  
-
-formdata=new FormData();
-
-onFileUpload(event:any){
-this.image=event.target.files[0];
- 
-}
 
 
-Uploaded(id:any){
-  console.log(id);
-  this.formdata.append('imageFile',this.image);
-  this.http.post("http://localhost:3000/multer/"+id+"/image",this.formdata).subscribe((image)=>{
-    console.log(image);
-    this.router.navigateByUrl('/home');
-  });
-   
-      
-  
- 
-}
+
+
+  }
+
+
 
 
 

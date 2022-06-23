@@ -28,3 +28,8 @@
 .card-body .badge{
     color:black;
 }
+
+button{
+    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    border-radius: 40px;
+}

@@ -3,10 +3,7 @@ const bodyParser = require('body-parser');
 const cart = require('../models/cart');
 const authenticate = require('../authenticate');
 const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const { stringify } = require('querystring');
-const { verify } = require('crypto');
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -34,7 +31,7 @@ uploadRouter.use(bodyParser.json());
 
 
 uploadRouter.route('/')
-    .get(authenticate.verifyUser,(req, res, next) => {
+    .get((req, res, next) => {
         cart.find({}).then(Order => {
              console.log(Order);
 
@@ -58,7 +55,7 @@ uploadRouter.route('/')
 
 
     //To add images the content type shld not be set or else set to multipart/form-data
-    .post( (req, res) => {
+    .post((req, res) => {
         const Prod =  cart({
             name: req.body.name,
             description: req.body.description,

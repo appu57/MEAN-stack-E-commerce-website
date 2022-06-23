@@ -1,39 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Body } from '@angular/http/src/body';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-private headers=new HttpHeaders().set('Content-Type','appication/json');
-  constructor(private http:HttpClient) { }
+  private headers = new HttpHeaders().set('Content-Type', 'appication/json');
+  constructor(private http: HttpClient) { }
 
 
-  postUser(user:any){
-    return this.http.post("http://localhost:3000/users/signup",user);
+  postUser(user: any) {
+    return this.http.post("http://localhost:3000/users/signup", user);
 
   }
-  getUser(){
+  getUser() {
     return this.http.get("http://localhost:3000/users/signup");
 
   }
-  logoutuser(){
+  logoutuser() {
     return this.http.get("http://localhost:3000/users/logout");
   }
-  loginUser(data:any){
-     return this.http.post("http://localhost:3000/users/login",data);
+  loginUser(data: any) {
+    return this.http.post("http://localhost:3000/users/login", data);
   }
 
-  getCartdetails(){
+  getCartdetails() {
     return this.http.get("http://localhost:3000/multer");
   }
 
 
-postCartDetails(product:any){
-  return this.http.post("http://localhost:3000/multer",product);
-}
+  postCartDetails(product: any) {
+    return this.http.post("http://localhost:3000/multer", product);
+  }
 
 
 
