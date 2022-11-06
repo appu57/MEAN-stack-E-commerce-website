@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NavigationExtras, Router } from '@angular/router';
 // import {DomSanitizerImp, DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/userservice';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 
 @Component({
@@ -17,16 +18,18 @@ export class CartComponent implements OnInit {
   data: any;
   image: string = "";
   object: any = [];
+  editProduct:any;
   baseUrl = "http://localhost:3000/public/"
   Product: any;
   length: any;
+  id:any;
   showmode: String;
   upload: any;
   ProductDetails = { name: String, description: String, price: Number };
 
 
   
-  constructor(private service: UserService, private http: HttpClient, private fb: FormBuilder, private router: Router) {
+  constructor(private service: UserService, private http: HttpClient, private fb: FormBuilder, private router: Router,private flash: FlashMessagesService,) {
     this.createForm();
   }
 
@@ -53,6 +56,14 @@ export class CartComponent implements OnInit {
 
   }
 
+  edit(){
+    this.showmode="edits";
+    this.http.get("http://localhost:3000/multer").subscribe((res)=>{
+      this.editProduct=res;
+    })
+
+  }
+
 
 
   submit() {
@@ -60,6 +71,8 @@ export class CartComponent implements OnInit {
       this.service.postCartDetails(this.addProduct.value).subscribe((res) => {
         console.log(res);
         this.data = res;
+        
+        
         this.showmode = "imageUpload";
         this.Product = this.data.user._id;
         console.log(this.Product);
@@ -93,8 +106,26 @@ export class CartComponent implements OnInit {
 
   }
 
+  deletedata(key:any){
+    this.service.deletecartdetails(key._id).subscribe((res)=>{
+      this.flash.show('Deleted Successfully', { timeout: 100000 });
+      console.log(res);
+    })
+
+  }
+
+  editdata(key:any)
+  {
+    this.showmode="updated";
+    this.id=key._id;
+  }
 
 
+  UpdateDetails(){
+    this.http.put("http://localhost:3000/multer/"+this.id+"/image",this.addProduct.value).subscribe((res)=>{
+      this.flash.show('Updated Successfully',{timeout:100000});
+    })
+  }
 
 
 

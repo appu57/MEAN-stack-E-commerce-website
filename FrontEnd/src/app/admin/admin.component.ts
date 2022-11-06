@@ -27,6 +27,7 @@ data:any;
    }
 
   ngOnInit(): void {
+
   }
 
 createsignup():void{

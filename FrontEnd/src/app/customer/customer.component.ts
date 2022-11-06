@@ -20,7 +20,8 @@ export class CustomerComponent implements OnInit {
   public showmode: string;
   values: any;
   err: any;
-  user:any;
+  
+  user: any;
   LoginForm: FormGroup;
   SignUpForm: FormGroup; //If form is not working     "strictPropertyInitialization": false, in tsconfig.json
   signup = { Username: String, Age: String, City: String, State: String, Email: String, password: String };
@@ -70,8 +71,8 @@ export class CustomerComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient,
     private service: UserService, private router: Router,
     private flash: FlashMessagesService,
-    
- ) {
+
+  ) {
     this.signinForm();
     this.loginForm();
     this.showmode = 'register';
@@ -80,8 +81,8 @@ export class CustomerComponent implements OnInit {
 
 
   ngOnInit() {
-    this.http.get("http://localhost:3000/users/signup").subscribe((res)=>{
-      this.user=res;
+    this.http.get("http://localhost:3000/users/signup").subscribe((res) => {
+      this.user = res;
     })
   }
 
@@ -93,7 +94,7 @@ export class CustomerComponent implements OnInit {
       State: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
       Email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-     
+
     });
 
   }
@@ -113,6 +114,7 @@ export class CustomerComponent implements OnInit {
     console.log(this.SignUpForm);
     this.service.postUser(this.SignUpForm.value).subscribe(res => {
       console.log(res);
+
       this.flash.show('User Registered. Login by clicking the SignIn button below!!', { timeout: 10000 });
     },
       (err) => {
@@ -135,11 +137,12 @@ export class CustomerComponent implements OnInit {
     this.service.loginUser(this.LoginForm.value).subscribe((res) => {
       console.log(res);
       this.data = res;
-
+      const value = this.data.user['0']._id;     
       localStorage.setItem('token', this.data.token);
+      localStorage.setItem('id',value);
       console.log(localStorage.getItem('token'));
-
-      this.router.navigate(['home']);
+      
+      this.router.navigate(['home'], { state: value });
 
 
       //Another way of emitting data between components is using this.router.getCurrentNavigation in childComp in parComp sending data using NavigationExtras={state:data} in childcomp writing as navigation?.extras.state
@@ -148,15 +151,15 @@ export class CustomerComponent implements OnInit {
 
   }
 
-  
+
   clear() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
- 
+
 
     console.log(localStorage.getItem('token'));
 
-    
-     
+
+
   }
 }

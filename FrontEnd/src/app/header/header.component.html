@@ -1,27 +1,25 @@
 <mat-toolbar class="header-container">
 
-
     <a routerLink="/home">
         <h3><span id="header">Order.</span>Com</h3>
     </a>
-    <!-- 
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-           
-                    <ol class="dropdown-menu"> -->
-    <div class="header">
-    <a routerLink="/customer">Users ClickHere</a>
-    <a routerLink="/admin">Admin ClickHere</a>
-    <a routerLink="/cart">Cart</a>
+    
+    <div *ngIf="id" class="id">
+        <input type="search" class="form-control" placeholder="Type here to search" [(ngModel)]="search">
+        <button (click)="searchedproduct()"><i class="fa fa-search"></i></button>&nbsp;
+        <div class="image"><img src="../../assets/images/a.png" (click)="Logout()"></div>
 
     </div>
-    <!-- </ol>
-</button> -->
-    <!-- </div> -->
 
-    
-    
-        <button class="header-container" type="button"  data-bs-toggle="header"  data-bs-target="#collapseExample" id="dropdownMenuButton" 
+
+
+
+
+
+
+
+
+    <!-- <button class="header-container" type="button"  data-bs-toggle="header"  data-bs-target="#collapseExample" id="dropdownMenuButton" 
         aria-haspopup="true" aria-expanded="false">
         Dropdown button
     </button>
@@ -30,6 +28,6 @@
             <li><a routerLink="/customer">Users ClickHere</a></li>
             <li><a routerLink="/admin">Admin ClickHere</a></li>
         </ul>
-    </div>
+    </div> -->
 
 </mat-toolbar>

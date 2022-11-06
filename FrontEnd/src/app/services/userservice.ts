@@ -37,7 +37,15 @@ export class UserService {
   }
 
 
+  deletecartdetails(id:any)
+  {
+    return this.http.delete("http://localhost:3000/multer/"+id+"/image");
+  }
 
+  updatecarddetails(data:any)
+  {
+    return this.http.put("http://localhost:3000/multer/"+data._id+"/image",data);
+  }
 
 
 

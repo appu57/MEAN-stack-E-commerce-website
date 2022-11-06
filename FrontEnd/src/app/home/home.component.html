@@ -1,35 +1,76 @@
-<div class="content">
-    <button (click)="cart()">Open Cart</button>
-    <button (click)="Logout()">Logout</button>
-    <div *ngIf="(showmode==='cart')" >
-        <div *ngIf="object">
-            <div *ngFor="let cart of object">
-                <p>{{cart.name}}</p>
-                <p>{{cart.description}}</p>
-                <p>Price : &nbsp;{{cart.price}}</p>
 
+
+<div class="container" *ngIf="Products" class="row">
+    <div class="button-container">
+        <div class="logout-container">
+            <img src="../../assets/images/c.png" id="logout">
+        </div>
+        <div class="images">
+            <img src="../../assets/images/V.jpg" (click)="all()">
+            <img src="../../assets/images/f.jpg" (click)="displayfruits()">
+            <img src="../../assets/images/V.jpg" (click)="displayveg()">
+        </div>
+        <div>
+            <div id="name-container">
+                <p>All</p>
+                <p>Fruits</p>
+                <p>Vegetables</p>
+            </div>
+            <p id="heading">Happy Shopping !!</p>
+            <div id="right">
+                <p>Cart</p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="image-slider">
+        <div class="slides">
+            <input type="radio" name="radio-button" id="r1">
+            <input type="radio" name="radio-button" id="r2">
+            <input type="radio" name="radio-button" id="r3">
+            <input type="radio" name="radio-button" id="r4">
+            <div class="slide first">
+                <img src="../../assets/images/V.jpg">
+            </div>
+            <div class="slide">
+                <img src="../../assets/images/f.jpg">
+            </div>
+            <div class="slide">
+                <img src="../../assets/images/V.jpg">
+            </div>
+            <div class="slide">
+                <img src="../../assets/images/f.jpg">
             </div>
 
+            <div class="navigation-auto">
+                <div class="auto-btn1"></div>
+                <div class="auto-btn2"></div>
+                <div class="auto-btn3"></div>
+                <div class="auto-btn4"></div>
+            </div>
+        </div>
+        <div class="navigation-manual">
+            <label for="r1" class="manual-button"></label>
+            <label for="r2" class="manual-button"></label>
+            <label for="r3" class="manual-button"></label>
+            <label for="r4" class="manual-button"></label>
+        </div>
+    </div>
 
+    <div *ngFor="let Product of Products" [routerLink]="['/viewproduct', Product._id]" class="col-md-3 col-sm-4">
+        <div class="card">
+            <img mat-card-image><img src="{{Product.image[0].img}}" width="150px" height="100px">
+            <div class="card-body">
+                <h1 class="card-title">{{Product.name}}</h1>
+                <p>{{Product.description}}</p>
+                <div class="badge badge-primary">
+                    <p>Price : &nbsp;{{Product.price}}</p>
+                </div><br>
+                <button (click)="addtocart(Product)">Add to Cart</button>
+            </div>
+
+        </div>
     </div>
 
 
-</div>
-<div *ngIf="(showmode=='show')">
-<div class="container" *ngIf="Products" class="row">
-    <div *ngFor="let Product of Products" class="col-md-3 col-sm-4">
-       <div class="card" >
-        <img mat-card-image><img src="{{Product.image[0].img}}" width="150px" height="100px">
-           <div class="card-body" >
-            <h1 class="card-title">{{Product.name}}</h1>
-            <p>{{Product.description}}</p>
-            <div class="badge badge-primary"><p>Price : &nbsp;{{Product.price}}</p></div><br>
-            <button (click)="addtocart(Product)">Add to Cart</button>
-           </div>
-     
-    </div>
-</div>
- 
-
-    </div>
 </div>

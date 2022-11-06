@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/userservice';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { compileClassMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -9,45 +10,74 @@ import { HttpClient} from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-data:any;
-Products:any;
-object:any=[];
-showmode:string;
+  data: any;
+  Products: any;
+  object: any;
+  card: any;
+  cartId:any;
+  Navigation: any;
+  showmode: string;
 
-  constructor(private router:Router, private http:HttpClient,
-    private service:UserService) { 
- const Navigation =this.router.getCurrentNavigation();
- this.data =Navigation?.extras.state;
- this.showmode="show";
- 
+  constructor(private router: Router, private http: HttpClient,
+    private service: UserService, private route: ActivatedRoute) {
 
-
- }
+    const navigation = this.router.getCurrentNavigation()?.extras.state;
+    console.log(navigation);
+    this.data = navigation;
+  
+  }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:3000/multer").subscribe((res=>{
-      this.Products= res;
-    }))
+    this.http.get("http://localhost:3000/multer").subscribe((res => {
+      this.Products = res;
+
+
+    }));
+
+
+    // console.log(history.state); way of interaction between two components
+
+
+    // this.route.queryParams.subscribe((params)=>{
+    //  this.data=params;
+    //  console.log(this.data);
+    // })
+
   }
-Logout(){
-  console.log(localStorage);
-  this.service.logoutuser().subscribe((res)=>{
-    console.log(res);
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-
-    this.router.navigateByUrl('/customer');
 
 
-  })
-}
+  addtocart(key: any) {
 
-addtocart(key:String){
-   this.object.push(key);
-   console.log(this.object);
-}
+    this.object=localStorage.getItem('id');
+    console.log(this.object);
+    this.http.post("http://localhost:3000/multer/addtocart/"+this.object,key).subscribe((res)=>{
+      console.log(res);
+    })
+    
+    
+  }
+  deletefromcart(){
+    this.http.delete("http://localhost:3000/multer/"+this.object+"/deletefromcart/"+this.cartId).subscribe((res)=>{
+      console.log(res);
+    })
+  }
 
-cart(){
-  this.showmode='cart';
-}
+  displayfruits() {
+    this.http.get("http://localhost:3000/multer/fruits").subscribe((res) => {
+      this.Products = res;
+
+    })
+  }
+  displayveg() {
+    this.http.get("http://localhost:3000/multer/Vegetables").subscribe((res) => {
+      this.Products = res;
+
+    })
+  }
+  all() {
+    this.http.get("http://localhost:3000/multer/").subscribe((res) => {
+      this.Products = res;
+
+    })
+  }
 }

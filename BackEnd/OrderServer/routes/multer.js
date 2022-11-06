@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cart = require('../models/cart');
 const authenticate = require('../authenticate');
 const multer = require('multer');
+const Users = require('../models/user');
+const { UpgradeRequired } = require('http-errors');
 
 
 const storage = multer.diskStorage({
@@ -33,14 +35,14 @@ uploadRouter.use(bodyParser.json());
 uploadRouter.route('/')
     .get((req, res, next) => {
         cart.find({}).then(Order => {
-             console.log(Order);
+            console.log(Order);
 
             //     });
-                res.statusCode = 200;
-                res.setHeader("Content-Type", "application/json");
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
             res.json(Order);
         },
-        (err)=>next(err))
+            (err) => next(err))
     })
 
     .delete((req, res, next) => {
@@ -51,57 +53,124 @@ uploadRouter.route('/')
                 res.json(data);
             })
     })
-
-
-
     //To add images the content type shld not be set or else set to multipart/form-data
     .post((req, res) => {
-        const Prod =  cart({
+        const Prod = cart({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
-            productType:req.body.productType,   
-         
-        })
-         Prod.save()
-        .then(user => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type','application/json');
-            res.json({user:user});
-            console.log(req.file,'storage', storage,user);
-
+            productType: req.body.productType,
 
         })
+        Prod.save()
+            .then(user => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json({ user: user });
+                console.log(req.file, 'storage', storage, user);
+
+
+            })
 
 
     });
-    uploadRouter.route('/:cartId/image')
+uploadRouter.route('/:cartId/image')
     //To add images the content type shld not be set or else set to multipart/form-data
     .post(upload.single('imageFile'), (req, res) => {
 
-         cart.findById(req.params.cartId)
-         .then((Products)=>{
-            Products.image.push({img:"http://localhost:3000/public/"+req.file.filename ,filename:req.file.filename});
-             Products.save().then((Cart)=>{
-                res.statusCode=200;
-                res.json(Products);
-                console.log(Cart);
-             })
-            
-
-         })
-        
-   
+        cart.findById(req.params.cartId)
+            .then((Products) => {
+                Products.image.push({ img: "http://localhost:3000/public/" + req.file.filename, filename: req.file.filename });
+                Products.save().then((Cart) => {
+                    res.statusCode = 200;
+                    res.json(Products);
+                    console.log(Cart);
+                })
 
 
-        })
-        .delete((req,res,next)=>{
-            cart.findByIdAndDelete(req.params.cartId)
-            .then((Product)=>{
-                res.statusCode=200;
+            })
+
+
+
+
+    })
+    .put((req, res, next) => {
+        cart.findByIdAndUpdate(req.params.cartId, { $set: req.body }, { new: true })
+            .then((product) => {
+                res.statusCode = 200;
+                res.json(product);
+
+            })
+            .catch((err) => {
+                res.json(err);
+            })
+    })
+    .delete((req, res, next) => {
+        cart.findByIdAndDelete(req.params.cartId)
+            .then((Product) => {
+                res.statusCode = 200;
                 res.json(Product);
             })
-        });
+    });
+//To get all fruits 
+uploadRouter.get('/fruits', (req, res, next) => {
+    cart.find({ productType: 'fruits' })
+        .then((product) => {
+            res.statusCode = 200;
+            res.json(product);
+        })
+});
+//To get all Vegetables
+uploadRouter.get('/Vegetables', (req, res, next) => {
+    cart.find({ productType: 'Vegetables' })
+        .then((product) => {
+            res.statusCode = 200;
+            res.json(product);
+        })
+});
+//add each item to users 
+uploadRouter.route("/addtocart/:userId")
+    .post((req, res) => {
+        Users.findById(req.params.userId).then((usercart) => {
+            usercart.addtocart.push(req.body)
+            usercart.save().then((added) => {
+                res.statusCode = 200;
+                res.json(added);
+            })
+        })
+
+    });
+//delete each item from the add to cart
+uploadRouter.route("/:usersId/deletefromcart/:addedId")
+    .delete((req, res, next) => {
+        Users.findById(req.params.usersId)
+            .then((user) => {
+                user.addtocart.id(req.params.addedId).remove();
+                user.save()
+                    .then((deleted) => {
+                        res.statusCode = 200;
+                        res.json(deleted);
+                    })
+            })
+    });
+
+uploadRouter.route("/viewproduct/:id")
+.get((req,res,next)=>{
+    cart.findById(req.params.id)
+    .then((found)=>{
+        res.statusCode=200;
+        res.json(found);
+    })
+});
+
+uploadRouter.route("/searchedprod/:name")
+.get((req,res,next)=>{
+    cart.find({name:req.params.name})
+    .then((searched)=>{
+        res.statusCode=200;
+        res.json(searched);
+    })
+})
 
 
 module.exports = uploadRouter;

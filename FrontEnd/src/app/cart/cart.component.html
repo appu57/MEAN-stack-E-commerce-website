@@ -1,7 +1,13 @@
+<div id="image">
+    <img src="../../assets/images/V.jpg" >
+    </div>
 <div class="Cart-Container">
-    <button id="fruits" (click)="fruits()">Add Products</button>
-
-
+    <div id="button-container">
+        <h1>Welcome Admin</h1>
+        <button id="fruits" (click)="fruits()">Add Products</button>
+        <button id="edit" (click)="edit()">Edit existing products</button>
+    </div>
+    <flash-messages></flash-messages>
     <div *ngIf="(showmode=='fruits')" class="fruits-container">
         <div class="form-container">
             <form [formGroup]="addProduct" (ngSubmit)="submit()">
@@ -27,18 +33,62 @@
             </form>
         </div>
     </div>
+    <div *ngIf="(showmode=='edits')" class="edit-container">
+        <div *ngIf="editProduct">
+            <div *ngFor="let edit of editProduct" class="col-md-10 col-sm-10">
+                <div class="card">
+                    <div class="card-content">
+                        <p id="name">{{edit.name}} </p>&nbsp;
+                        <p>{{edit.productType}}</p>
+
+                        <p><button (click)="editdata(edit)">Edit</button></p>
+                        <p><button (click)="deletedata(edit)">Delete</button></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
-    <div class="container" *ngIf="(showmode=='imageUpload')">
-        <form enctype="multipart/form-data">
+        <div class="container" *ngIf="(showmode=='imageUpload')">
+            <form enctype="multipart/form-data">
 
                 <input type="file" name="imageFile" (change)="onFileUpload($event)">
-                <button  (click)="Uploaded()" aria-placeholder="Submit">
-                Submit
+                <button (click)="Uploaded()" aria-placeholder="Submit">
+                    Submit
                 </button>
 
-        </form>
-    </div>
+            </form>
+        </div>
+
+
+        <div *ngIf="(showmode=='updated')" class="fruits-container">
+
+            <div class="form-container">
+                <form [formGroup]="addProduct" (ngSubmit)="UpdateDetails()">
+
+
+
+
+                    Enter the name of the Product <p><input matInput formControlName="name" type="text"></p>
+
+                    Enter the price of Product <p><input matInput formControlName="price" type="number"></p>
+
+                    Write the description <p><textarea rows="10" formControlName="description"></textarea></p>
+
+                    <input value="fruits" type="radio" formControlName="productType">Fruits
+                    <input value="Vegetables" type="radio" formControlName="productType">Vegetables
+                    <input value="Groceries" type="radio" formControlName="productType">Groceries
+                    <br>
+
+
+                    <button type="submit">Submit</button>
+                    <br>
+
+                </form>
+            </div>
+        </div>
 </div>

@@ -17,6 +17,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {FlashMessagesModule} from 'angular2-flash-messages';
+import {MatIconModule} from '@angular/material/icon'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +26,8 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
 import { AdminComponent } from './admin/admin.component';
-import { CustomerComponent} from './customer/customer.component'
+import { CustomerComponent} from './customer/customer.component';
+import { ViewComponent } from './view/view.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { CustomerComponent} from './customer/customer.component'
     HomeComponent,
     CartComponent,
     AdminComponent,
-    CustomerComponent
+    CustomerComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { CustomerComponent} from './customer/customer.component'
     FlexLayoutModule,
     HttpClientModule,
     HttpModule,
+    MatIconModule,
     FlashMessagesModule.forRoot()
   ],
   providers: [],

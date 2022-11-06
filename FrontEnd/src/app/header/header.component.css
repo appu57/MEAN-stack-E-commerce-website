@@ -1,27 +1,69 @@
  .header-container{
-box-shadow:2px 2px 2px 2px  rgb(129, 117, 155);
-background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+box-shadow:2px 2px 2px 2px  rgb(94, 44, 202);
+background-image: linear-gradient(rgb(185, 80, 10),rgb(197, 43, 102));
+height: 55px;
 }
 
 .header-container h3{
     font-style: italic;
     text-shadow: 1px 2px black;
-    color: blue;
+    color: rgb(13, 228, 60);
+    position: absolute;
+    top: 10px;
+    left: 15vw;
+}
+.header-container .id{
+    position: absolute;
+    top: 0;
+    left: 25vw;
 }
 .header-container a{
     text-decoration: none;
 }
 
-.header-container h3 span{
-    font-size: 2em;
+.header-container h3 {
+    font-size: 1.5em;
     text-shadow: 1px 2px black;
 }
 
-.header-container .dropdown {
-    margin-left: 50vw;
+
+.header-container input{
+    width: 40vw;
+    margin-left: 55px;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px rgb(187, 120, 167) ;
+    color: black;
+    height: 90%;
+    margin-top: 9px;
 }
 
-.header-container .link-container a{
+.header-container button{
+    border-radius: 50%;
+    padding : 5px;
+    margin-left: 10px;
+    background-color: rgb(63, 230, 63);
+    color: white;
+    border: 1px white;
+    height: 50%;
+    margin-top: 10px;
+
+    
+}
+
+.header-container .id{
+    display:flex;
+}
+.image{
+    padding-left: 10vw;
+}
+img{
+    border-radius: 50%;
+    width: 50px;
+   
+
+}
+
+/* .header-container .link-container a{
     margin-left:10px;
     text-decoration: none;
     color: blue;
@@ -29,4 +71,4 @@ background-image: linear-gradient(rgb(141, 211, 28),skyblue);
 
     font-style: bold italic;
     font-size: 1.3em;
-}
+} */

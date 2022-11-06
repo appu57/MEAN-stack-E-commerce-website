@@ -1,4 +1,7 @@
+ 
+ 
  .cust-container{
+    background-image: linear-gradient(rgb(185, 80, 10),rgb(197, 43, 102));
     width: 100%;
     height: 100vh;
 }
@@ -23,7 +26,7 @@ mat-card mat-form-field{
 
 .cust-container mat-card{
     background-color: mediumseagreen;
-    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    background-image: linear-gradient(rgb(129, 65, 23),rgb(192, 123, 150));
     font-size: 1.2em;
     margin-top: 5vh;
     margin-left: 5vw;

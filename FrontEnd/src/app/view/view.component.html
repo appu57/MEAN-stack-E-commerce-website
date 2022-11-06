@@ -1,0 +1,22 @@
+<div class="view-container">
+    <div class="view-product" *ngIf="product">
+        <div class="right-container">
+            <div class="card">
+                <div class="card-image">
+                    <h5>{{product.name}}</h5>
+                    <img src="{{product.image['0'].img}}">
+                </div>
+                <div class="card-content">
+                    <p>{{product.description}}</p>
+                    <p id="price-id">Price of {{product.name}} per kg :{{product.price}}</p>
+                    <p id="price-id">Category the product belongs to : {{product.productType}}</p>
+                    <button id="right" (click)="addtocart(product)">Add to Cart</button>
+                    <button id="left" routerLink="/home">Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
