@@ -63,7 +63,13 @@ var UserSchema = new Schema({
      
      image: {
          img: String
-   }
+   },
+     
+      quantity:{
+         type:Number,
+         default:0
+      }
+     
    }]
 
 });

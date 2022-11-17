@@ -20,6 +20,7 @@ viewsearch(name:string)
   return this.http.get("http://localhost:3000/multer/searchedprod/"+name);
 }
 
+
 // getProductId() {
 //   return this.getProducts().pipe(map(dishes => dishes.map(dish => dish.id)))
 //     .pipe(catchError(error => error));

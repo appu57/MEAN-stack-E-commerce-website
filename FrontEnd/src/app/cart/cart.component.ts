@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 // import {DomSanitizerImp, DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/userservice';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -23,18 +23,21 @@ export class CartComponent implements OnInit {
   Product: any;
   length: any;
   id:any;
+  admin:any;
   showmode: String;
   upload: any;
   ProductDetails = { name: String, description: String, price: Number };
 
 
   
-  constructor(private service: UserService, private http: HttpClient, private fb: FormBuilder, private router: Router,private flash: FlashMessagesService,) {
+  constructor(private service: UserService, private http: HttpClient, private fb: FormBuilder, private router: Router,
+    private flash: FlashMessagesService,private route:ActivatedRoute) {
     this.createForm();
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(){
+    this.admin = this.route.snapshot.params['id'];
+      console.log(this.admin);
 
   }
 
@@ -108,8 +111,8 @@ export class CartComponent implements OnInit {
 
   deletedata(key:any){
     this.service.deletecartdetails(key._id).subscribe((res)=>{
-      this.flash.show('Deleted Successfully', { timeout: 100000 });
       console.log(res);
+      this.router.navigateByUrl('/home');
     })
 
   }
@@ -123,7 +126,7 @@ export class CartComponent implements OnInit {
 
   UpdateDetails(){
     this.http.put("http://localhost:3000/multer/"+this.id+"/image",this.addProduct.value).subscribe((res)=>{
-      this.flash.show('Updated Successfully',{timeout:100000});
+   this.router.navigateByUrl('/home');      
     })
   }
 

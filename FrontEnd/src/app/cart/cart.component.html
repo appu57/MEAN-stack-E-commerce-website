@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-content">
                         <p id="name">{{edit.name}} </p>&nbsp;
-                        <p>{{edit.productType}}</p>
+                        <!-- <p>{{edit.productType}}</p> -->
 
                         <p><button (click)="editdata(edit)">Edit</button></p>
                         <p><button (click)="deletedata(edit)">Delete</button></p>
@@ -54,8 +54,9 @@
 
 
         <div class="container" *ngIf="(showmode=='imageUpload')">
+            <h2>Choose the image to be Uploaded</h2>
             <form enctype="multipart/form-data">
-
+ 
                 <input type="file" name="imageFile" (change)="onFileUpload($event)">
                 <button (click)="Uploaded()" aria-placeholder="Submit">
                     Submit

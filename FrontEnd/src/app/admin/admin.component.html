@@ -1,43 +1,58 @@
-<div class="flash-messages">
-    <flash-messages></flash-messages>
+<div class="cart-details">
+    <div *ngIf="(setstatus=='false')" class="empty-cart">
+        <img src="../../assets/images/emptycart.png">
+        <p>Cart is Empty.</p>
+        <p>Seems like you havent added any product to the cart!!</p>
+        <p>Shop right away.To pick amazing deals &nbsp;&nbsp; <a href="">Shop</a></p>
     </div>
-<div class="cust-container" >
+    <div *ngIf="(showmode=='showcart')">
+        <div *ngIf="(setstatus=='true')" class="row">
+            <div class="heading">
+                <p>Product added to your cart is displayed below.</p>
+
+            </div>
+            <div *ngFor="let eachproduct of cart" class="col-md-9 col-lg-9 col-sm-9 col-xs-9">
+                <div class="card ">
+
+                    <p>{{eachproduct.name}}</p>
+
+                    <p id="price-tag">{{eachproduct.price}}/-</p>
 
 
+                    <button (click)="deletefromcart(eachproduct._id)">Delete from cart</button>
+                </div>
+            </div>
+            <button id="order-processing" (click)="proceedordering()">View the Order Summary </button>
 
-    <div class="login-container"  fxFlex="80">
-        <mat-card>
-            <mat-card-title>
-                <h5>Login</h5>
-            </mat-card-title>
-            <mat-card-content>
+        </div>
 
-                <form [formGroup]="LoginForm" (ngSubmit)="Add()">
-                    <mat-form-field>
-                        <label>Enter the Username</label>
-                        <input matInput formControlName="Username" type="text">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <label>Enter your Email</label>
-                        <input matInput type="Email" formControlName="Email" required>
-
-                    </mat-form-field>
-                    <mat-form-field>
-                        <label>Enter your Password</label>
-                        <input matInput type="text" formControlName="password" required>
-
-                    </mat-form-field>
-
-                    <button type="submit">Login</button>
-                    <button >Delete</button>
-
-
-
-                </form>
-
-            </mat-card-content>
-        </mat-card>
     </div>
 
-
+    <div *ngIf="(showmode=='orderbill')">
+        <div class="middle" *ngIf="message">
+            <p>{{message}}</p>
+        </div>
+        <div class="card order-summary">
+            <div class="card-title">
+                <p>Order Summary</p>
+            </div>
+            <div class="card-content">
+                <div class="left">
+                    <p>Total amount processed for the items : </p>
+                    <p>GST / Tax : </p>
+                    <p>Processing Charge : </p>
+                    <p>Total Bill : </p>
+                    <p id="ordered">Confirm your order by pressing the tick</p>
+                </div>
+                <div class="right">
+                    <p>{{beforetax}}/-</p>
+                    <p> 50/-</p>
+                    <p> 0 /-</p>
+                    <p>{{order}}/-</p>
+                    <i class="fas fa-check" (click)="ordered()"></i>
+                </div>
+            </div>
+        </div>
+        <button id="backtocart" (click)="movebacktocart()">Move back to Cart</button>
+    </div>
 </div>

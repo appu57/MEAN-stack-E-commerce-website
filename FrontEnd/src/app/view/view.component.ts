@@ -17,8 +17,10 @@ export class ViewComponent implements OnInit {
   product:any;
   object:any;
   prod:any;
+  productexists:any;
   searched:{};
-  constructor(private service:CartService,  private route: ActivatedRoute,private http:HttpClient,private router:Router) { }
+  constructor(private service:CartService,  private route: ActivatedRoute,private http:HttpClient,
+    private router:Router,private flash:FlashMessagesService) { }
 
   ngOnInit(){
     // this.service.getProductId()
@@ -45,6 +47,8 @@ export class ViewComponent implements OnInit {
       this.http.post("http://localhost:3000/multer/addtocart/"+this.object,product).subscribe((res)=>{
         console.log(res);
     })
+    this.router.navigateByUrl('/admin');
  }
+
 
 }

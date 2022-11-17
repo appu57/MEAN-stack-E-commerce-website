@@ -41,14 +41,13 @@ mat-card mat-form-field input{
 }
 
 .flash-messages{
-    background-image: linear-gradient(rgb(141, 211, 28),skyblue);
+    background-color: rgb(82, 223, 82);
     color:black;
     font-size: 1.3em;
     font-style: bold;
     float:center;
-    
+    margin-bottom: -25px;
     text-align: center;
-    justify-content: center;
 } 
 
 button{

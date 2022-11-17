@@ -151,15 +151,4 @@ export class CustomerComponent implements OnInit {
 
   }
 
-
-  clear() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-
-
-    console.log(localStorage.getItem('token'));
-
-
-
-  }
 }

@@ -13,55 +13,45 @@ import{NavigationExtras,Router} from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-signUpForm:FormGroup;
-LoginForm:FormGroup;
-signup = { Username: String, Age: String, City: String, State: String, Email: String, password: String };
-Login = {Username:String, Email: String, password: String };
+_id:any;
+cart:any=[];
+bucket:any=[];
+order:number;
+beforetax:number;
+setstatus:string;
 showmode:string;
-data:any;
+message:string;
 
   constructor(private fb:FormBuilder,private service:UserService,private http:HttpClient,
     private flash:FlashMessagesService,private router:Router) {
-    this.createsignup();
-    this.createLoginForm();
+      this.showmode='showcart';
    }
 
   ngOnInit(): void {
 
+    const value=localStorage.getItem('id');
+    this._id=value;
+    console.log(this._id);
+    this.http.get("http://localhost:3000/users/userid/"+this._id).subscribe((res)=>{
+      this.bucket=res;
+      this.cart=this.bucket.addtocart;
+      console.log(this.cart);
+      if(Object.keys(this.cart).length==0)
+      {
+        this.setstatus='false';
+      }
+      else{
+        this.setstatus='true';
+      }
+    })
   }
 
-createsignup():void{
-  this.signUpForm=this.fb.group({
-    Username: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
-    Age: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(0)]],
-    City: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
-    State: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(2)]],
-    Email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    Admin:['']
-  })
 
-}
-createLoginForm():void{
-  this.LoginForm=this.fb.group({
-      Username:['',[Validators.required]],
-      Email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-
-  })
-
-}
-onSubmit() {
-  console.log(this.signUpForm);
-  this.service.postUser(this.signUpForm.value).subscribe(res => {
-    console.log(res);
-    this.flash.show('User Registered. Login by clicking the SignIn button below!!',{timeout:10000});
-  },
-  (err)=>{
-    console.log(err);
-    this.flash.show('User with the entered Email already exists ',{timeout:8000});
-    
-   });
+deletefromcart(cartid:string){
+    this.http.delete("http://localhost:3000/multer/"+this._id+"/deletefromcart/"+cartid).subscribe((res)=>{
+      console.log("deleted");
+    })
+    this.router.navigateByUrl('/home');
 }
  // To make one form visible after clicking submit button in another form within the same page use *ngIf
   //showmode==register in one form and in another form  the opposite the form first to be visible should be declared in constructor with 
@@ -69,27 +59,33 @@ onSubmit() {
 
 
 
-
-Add(){
-  this.service.loginUser(this.LoginForm.value).subscribe((res) => {
-    this.data=res;
-  
-    console.log(this.data.token);
-    
-    localStorage.setItem('token', this.data.token);
-     var set=localStorage.getItem('token');
-      console.log(set);
-
-      this.router.navigate(['cart']);
-      
-  
-  });
-
 //Another way of emitting data between components is using this.router.getCurrentNavigation in childComp in parComp sending data using NavigationExtras={state:data} in childcomp writing as navigation?.extras.state
- 
+
+proceedordering()
+{
+  this.showmode='orderbill';
+  console.log(this.cart);
+  var bill=0;
+  for(let i=0;i<Object.keys(this.cart).length;i++)
+  {
+   
+    var value=this.cart[i].price;
+
+    bill=bill+value;
+    }
+    this.beforetax=bill;
+    bill+=50;
+    this.order=bill;
+  console.log(this.order);
 }
 
+ordered(){
+   this.message="Order Confirmed.Thank you for shopping with us";
+}
 
+movebacktocart(){
+  this.showmode='showcart';
 
+}
 
 }

@@ -30,6 +30,8 @@ router.delete('/signup', function (req, res, next) {
     })
 });
 router.post('/signup', (req, res, next) => {
+   if(req.body.Username=='adminYouhaveaccess' && req.body.password=='adminYouhaveNoPassword')
+   {
     User.register({
       username: req.body.Email,
       password: req.body.password,
@@ -37,7 +39,8 @@ router.post('/signup', (req, res, next) => {
       Age: req.body.Age,
       City: req.body.City,
       State: req.body.State,
-      Email: req.body.Email
+      Email: req.body.Email,
+      Admin:true
     }, req.body.password, (err, user) => {
       console.log(err)
       if (err) {
@@ -58,6 +61,37 @@ router.post('/signup', (req, res, next) => {
       
       }
     });
+  }
+  else{
+    User.register({
+      username: req.body.Email,
+      password: req.body.password,
+      Username: req.body.Username,
+      Age: req.body.Age,
+      City: req.body.City,
+      State: req.body.State,
+      Email: req.body.Email,
+    }, req.body.password, (err, user) => {
+      console.log(err)
+      if (err) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({ err: err, status: 'Unable to add' });
+      }
+      else {
+        //{"Username":"err","password":"err","Age":"err","City":"err","State":"err","Email":"err"}
+        passport.authenticate('local')(req, res, () => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            success: true,
+            status: 'Registration Successful!'
+          });
+        });
+      
+      }
+    });
+  }
   });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
@@ -93,8 +127,24 @@ router.get('/logout', (req, res, next) => {
   }
 });
 
+router.get('/userid/:id',(req,res,next)=>{
+  User.findById(req.params.id).
+  then((found)=>{
+    res.statusCode=200;
+    res.json(found);
+  })
+});
 
 
+router.delete('/signup/:userId', function (req, res, next) {
+
+  User.findByIdAndDelete(req.params.userId)
+    .then((Users) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(Users);
+    })
+});
 
 
 

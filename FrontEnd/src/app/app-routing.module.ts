@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent,canActivate: [AuthGuard] },
   { path: 'viewproduct/:id',     component: ViewComponent },
+  { path: 'admin',     component: AdminComponent },
   { path: 'viewprod',     component: ViewComponent }
 
 ];

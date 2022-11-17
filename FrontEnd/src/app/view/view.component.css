@@ -40,6 +40,7 @@
 
 .view-container .view-product .right-container .card img{
     padding-left: 33%;
+    
 }
 
 .view-container .view-product .right-container .card .card-content
@@ -71,3 +72,11 @@ button{
     font-weight: bold;
     color:black;
 }
+  .flash-messages{
+    background-color: rgb(13, 228, 60);
+    color:black;
+    font-size: 1.3em;
+    font-style: bold;
+    margin-right: 40vw;
+} 
+

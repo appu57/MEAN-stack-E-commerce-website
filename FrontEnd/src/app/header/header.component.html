@@ -7,7 +7,9 @@
     <div *ngIf="id" class="id">
         <input type="search" class="form-control" placeholder="Type here to search" [(ngModel)]="search">
         <button (click)="searchedproduct()"><i class="fa fa-search"></i></button>&nbsp;
-        <div class="image"><img src="../../assets/images/a.png" (click)="Logout()"></div>
+        <div class="image" >
+            <button (click)="Logout()">Logout</button>
+        </div>
 
     </div>
 

@@ -3,7 +3,8 @@
 <div class="container" *ngIf="Products" class="row">
     <div class="button-container">
         <div class="logout-container">
-            <img src="../../assets/images/c.png" id="logout">
+            <img src="../../assets/images/admin.png" id="logout" (click)="movetocart()">
+            <a [routerLink]="['/admin']"><img src="../../assets/images/c.png" id="logout"  ></a>
         </div>
         <div class="images">
             <img src="../../assets/images/V.jpg" (click)="all()">
@@ -18,10 +19,13 @@
             </div>
             <p id="heading">Happy Shopping !!</p>
             <div id="right">
-                <p>Cart</p>
+                <p>Admins Only</p>
+
+                <p>Cart</p> 
             </div>
         </div>
     </div>
+
    
     <div class="image-slider">
         <div class="slides">
@@ -56,8 +60,7 @@
             <label for="r4" class="manual-button"></label>
         </div>
     </div>
-
-    <div *ngFor="let Product of Products" [routerLink]="['/viewproduct', Product._id]" class="col-md-3 col-sm-4">
+    <div *ngFor="let Product of Products" [routerLink]="['/viewproduct', Product._id]" class=" index col-md-3 col-sm-4">
         <div class="card">
             <img mat-card-image><img src="{{Product.image[0].img}}" width="150px" height="100px">
             <div class="card-body">

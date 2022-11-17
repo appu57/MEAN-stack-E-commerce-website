@@ -14,7 +14,10 @@ export class HomeComponent implements OnInit {
   Products: any;
   object: any;
   card: any;
-  cartId:any;
+  cartId: any;
+  _id: string;
+  flag: boolean;
+  particularuser: any;
   Navigation: any;
   showmode: string;
 
@@ -24,13 +27,19 @@ export class HomeComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation()?.extras.state;
     console.log(navigation);
     this.data = navigation;
-  
+
+
   }
 
   ngOnInit(): void {
     this.http.get("http://localhost:3000/multer").subscribe((res => {
       this.Products = res;
-
+      const id = localStorage.getItem('id');
+      this.http.get("http://localhost:3000/users/userid/" + id).subscribe((res) => {
+      this.particularuser = res;
+        // this.flag = this.particularuser.Admin;
+        localStorage.setItem('flag',this.particularuser.Admin);
+      });
 
     }));
 
@@ -46,18 +55,19 @@ export class HomeComponent implements OnInit {
   }
 
 
+
   addtocart(key: any) {
 
-    this.object=localStorage.getItem('id');
+    this.object = localStorage.getItem('id');
     console.log(this.object);
-    this.http.post("http://localhost:3000/multer/addtocart/"+this.object,key).subscribe((res)=>{
+    this.http.post("http://localhost:3000/multer/addtocart/" + this.object, key).subscribe((res) => {
       console.log(res);
     })
-    
-    
+
+
   }
-  deletefromcart(){
-    this.http.delete("http://localhost:3000/multer/"+this.object+"/deletefromcart/"+this.cartId).subscribe((res)=>{
+  deletefromcart() {
+    this.http.delete("http://localhost:3000/multer/" + this.object + "/deletefromcart/" + this.cartId).subscribe((res) => {
       console.log(res);
     })
   }
@@ -80,4 +90,17 @@ export class HomeComponent implements OnInit {
 
     })
   }
+
+
+  movetocart() {
+      if(localStorage.getItem('flag')=='true')
+      {
+        this.router.navigateByUrl('/cart');
+      }
+      else{
+        console.log("no");
+      }
+  }
+
+
 }

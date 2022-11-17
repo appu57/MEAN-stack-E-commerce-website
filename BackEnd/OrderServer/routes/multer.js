@@ -154,23 +154,60 @@ uploadRouter.route("/:usersId/deletefromcart/:addedId")
             })
     });
 
+//To display a single product in view component
 uploadRouter.route("/viewproduct/:id")
-.get((req,res,next)=>{
-    cart.findById(req.params.id)
-    .then((found)=>{
-        res.statusCode=200;
-        res.json(found);
-    })
-});
+    .get((req, res, next) => {
+        cart.findById(req.params.id)
+            .then((found) => {
+                res.statusCode = 200;
+                res.json(found);
+            })
+    });
 
 uploadRouter.route("/searchedprod/:name")
-.get((req,res,next)=>{
-    cart.find({name:req.params.name})
-    .then((searched)=>{
-        res.statusCode=200;
-        res.json(searched);
-    })
-})
+    .get((req, res, next) => {
+        cart.find({ name: req.params.name })
+            .then((searched) => {
+                res.statusCode = 200;
+                res.json(searched);
+            })
+    });
 
+//To check if the product is already present in the cart
+uploadRouter.route("/:userId/checkifproductpresent/:prodId")
+    .get((req, res, next) => {
+        Users.findById(req.params.userId)
+            .then((founduser) => {
+                res.statusCode = 200;
+                res.json(founduser.addtocart.id(req.params.prodId));
+
+            })
+    });
+
+//If present update the quantity
+uploadRouter.route("/:userId/updatequantity/:prodId")
+    .put((req, res, next) => {
+        Users.findById(req.params.userId)
+            .then((founduser) => {
+                founduser.addtocart.id(req.params.prodId).quantity = req.body.quantity;
+                founduser.save().then((savedquantity) => {
+                    res.statusCode = 200;
+                    res.json(savedquantity);
+                })
+            })
+    });
+
+//Once ordered delete the cart items
+// uploadRouter.route("/:userId/Deletecart")
+//     .delete((req, res, next) => {
+//         Users.findById(req.params.userId)
+//             .then((foundusers) => {
+//                 foundusers.addtocart.deleteMany()
+//                     foundusers.save().then((deleted) => {
+//                         res.statusCode = 200;
+//                         res.json(deleted);
+//                     })
+//             })
+//     });
 
 module.exports = uploadRouter;

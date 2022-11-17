@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { EventEmitter } from 'ws';
 import { UserService } from '../services/userservice';
 import {Router} from '@angular/router';
+import { user } from '../shared/user';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +13,17 @@ import {Router} from '@angular/router';
 export class HeaderComponent implements OnInit {
 search:any;
 id:any;
+userlogin:string;
 
   constructor( private http: HttpClient,private router:Router,
     private service: UserService) { 
       this.id=localStorage.getItem('id');
-      
+  
 
     }
 
-  ngOnInit(): void {
+  ngOnInit(){
+  
   }
 searchedproduct(){
      this.router.navigate(['viewprod'],{state:this.search});
@@ -32,6 +35,7 @@ Logout() {
     console.log(res);
     localStorage.removeItem('token');
     localStorage.removeItem('search');
+    localStorage.removeItem('flag');
 
     console.log(localStorage.getItem('id'));
     this.router.navigateByUrl('/customer');
