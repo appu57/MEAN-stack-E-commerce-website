@@ -4,8 +4,10 @@
 <div class="Cart-Container">
     <div id="button-container">
         <h1>Welcome Admin</h1>
+        
         <button id="fruits" (click)="fruits()">Add Products</button>
         <button id="edit" (click)="edit()">Edit existing products</button>
+    
     </div>
     <flash-messages></flash-messages>
     <div *ngIf="(showmode=='fruits')" class="fruits-container">

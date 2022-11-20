@@ -28,11 +28,11 @@ export class CustomerComponent implements OnInit {
   Login = { Email: String, password: String };
   formErrors = {
     'Username': '',
-    'dob': '',
     'Age': '',
     'City': '',
     'State': '',
-    'Email': ''
+    'Email': '',
+    'Password':''
   };
 
   validationMessages = {

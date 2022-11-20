@@ -13,44 +13,56 @@
             <mat-card-content>
 
                 <form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field>
+                    <div class="form-group">
                         <label>Enter your Name</label>
-                        <input matInput type="text" formControlName="Username" required>
-                        <mat-error *ngIf="formErrors.Username">{{formErrors.Username}}</mat-error>
-                    </mat-form-field>
-                    <mat-form-field>
+                        <input type="text" formControlName='Username' required class="form-control">
+                        <!-- <span>
+                            <div *ngIf="SignUpForm.controls.Username.errors" class="text">
+                                <p>Username is required</p>
+                            </div>
+                        </span> -->
+                    </div>
+                    <div class="form-group">
                         <label>Enter your Age</label>
-                        <input matInput type="number" formControlName="Age" required>
-                        <mat-error *ngIf="formErrors.Age">{{formErrors.Age}}</mat-error>
-
-                    </mat-form-field>
-                    <mat-form-field>
+                        <input matInput type="number" formControlName="Age" required class="form-control">
+                        <!-- <span>
+                            <div *ngIf="SignUpForm.controls.Age.errors" class="text" style="display: none;">
+                                <p>Age is required</p>
+                            </div>
+                        </span> -->
+                    </div>
+                    <div class="form-group">
                         <label>Enter your City</label>
-                        <input matInput type="text" formControlName="City" required>
-                        <mat-error *ngIf="formErrors.City">{{formErrors.City}}</mat-error>
+                        <input matInput type="text" formControlName="City" required class="form-control">
 
-                    </mat-form-field>
-                    <mat-form-field>
+                    </div>
+                    <div class="form-group">
                         <label>Enter your State</label>
-                        <input matInput type="text" formControlName="State" required>
-                        <mat-error *ngIf="formErrors.State">{{formErrors.State}}</mat-error>
+                        <input matInput type="text" formControlName="State" required class="form-control">
 
-                    </mat-form-field>
-                    <mat-form-field>
+                    </div>
+                    <div class="form-group">
                         <label>Enter your Email</label>
-                        <input matInput type="Email" formControlName="Email" required>
-                        <mat-error *ngIf="formErrors.Email">{{formErrors.Email}}</mat-error>
+                        <input matInput type="Email" formControlName="Email" required class="form-control">
+                        <span>
+                            <div *ngIf="SignUpForm.controls.Email.errors" class="text" style="display: none;">
+                                <p>Email is invalid</p>
+                            </div>
+                        </span>
 
-                    </mat-form-field>
-                    <mat-form-field>
-                        <label>Enter your Password</label>
-                        <input matInput type="text" formControlName="password" required>
-                        <mat-error *ngIf="formErrors.dob">{{formErrors.dob}}</mat-error>
+                    </div>
+                    <div class="form-group">
+                        <label id="password">Enter your Password</label>
+                        <input matInput type="text" formControlName="password" required class="form-control">
+                        <span>
+                            <div *ngIf="SignUpForm.controls.Email.errors" class="text" style="display: none;">
+                                <p>Email is invalid</p>
+                            </div>
+                        </span>
+                    </div>
 
-                    </mat-form-field>
 
-
-                    <button type="submit">SignUp</button>
+                    <button type="submit" [disabled]='!SignUpForm.valid'>SignUp</button>
 
                     <h4>Already have an account!<button (click)="login()"> SignIn</button></h4>
 
@@ -77,23 +89,21 @@
 
                 <form [formGroup]="LoginForm">
 
-                    <mat-form-field>
+                    <div class="form-group">
                         <label>Enter your Email</label>
-                        <input matInput type="Email" formControlName="Email" required>
-                        <mat-error *ngIf="formErrors.Email">{{formErrors.Email}}</mat-error>
+                        <input matInput type="Email" formControlName="Email" required class="form-control">
 
-                    </mat-form-field>
-                    <mat-form-field>
+                    </div>
+                    <div class="form-group">
                         <label>Enter your Password</label>
-                        <input matInput type="text" formControlName="password" required>
-                        <mat-error *ngIf="formErrors.dob">{{formErrors.dob}}</mat-error>
+                        <input matInput type="text" formControlName="password" required class="form-control">
 
-                    </mat-form-field>
-
+                    </div>
 
 
 
-                    <button type="button" (click)="Add()">Login</button>
+
+                    <button type="button" (click)="Add()" [disabled]='!LoginForm.valid'>Login</button>
 
 
                     <h4>Dont have an account!<button (click)="SignUp()"> Register</button></h4>

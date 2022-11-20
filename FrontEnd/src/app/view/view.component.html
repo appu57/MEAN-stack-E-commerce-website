@@ -9,7 +9,7 @@
                     <img src="{{product.image['0'].img}}">
                 </div>
                 <div class="card-content col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                    <p>{{product.description}}</p>
+                    <p id="description">{{product.description}}</p>
                     <p id="price-id">Price of {{product.name}} per kg :{{product.price}}</p>
                     <p id="price-id">Category the product belongs to : {{product.productType}}</p>
                     <button id="right" (click)="addtocart(product)">Add to Cart</button>

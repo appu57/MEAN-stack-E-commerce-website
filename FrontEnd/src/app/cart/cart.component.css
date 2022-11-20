@@ -71,15 +71,15 @@
 
 /*Form input styling*/
 .fruits-container .form-container input[type="text"]{
-    height: 18px;
-    width: 18vw;
+    height: 50%;
+    width: 100%;
 }
 .fruits-container .form-container input[type="number"]{
-    height: 18px;
-    width: 18vw;
+    height: 50%;
+    width: 100%;
 }
 .fruits-container .form-container textarea{
-    width: 18vw;
+    width: 100%;
 }
 
 /*Radio buttons display*/
@@ -145,3 +145,24 @@ flash-messages #flashMessages .flash-messages{
     margin-left: 10vw;
 }
 
+@media screen and (min-width: 600px) {
+    #image img{
+        height: 125vh;
+    }
+
+    .button-Container{
+        margin-left: 0;
+    }
+  }
+
+
+  
+@media ( max-width:500px) {
+    img{
+        height: 550vh;
+    }
+
+    .button-Container{
+        margin-left: 0;
+    }
+  }
